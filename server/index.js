@@ -102,6 +102,25 @@ app.post('/bike/add', (req, res) => {
   });
 });
 
+app.post('/bike/category/add', (req, res) => {
+
+  let data =  req.body.data;
+
+  const category_name = data.categoryName;
+
+  var sql = `
+    INSERT INTO category_table 
+      (category_name)
+    VALUES ('${category_name}')
+    `;
+
+  db.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+
 app.put('/bike/update', (req, res) => {
 
   let data =  req.body.data;
@@ -133,11 +152,48 @@ app.put('/bike/update', (req, res) => {
   });
 });
 
+
+app.put('/bike/category/update', (req, res) => {
+
+  let data =  req.body.data;
+
+  const category_id = data.categoryId;
+  const category_name = data.categoryName;
+
+
+  var sql = `
+    UPDATE category_table
+    SET 
+      category_id = '${category_id}',
+      category_name = '${category_name}'
+    WHERE 
+      category_id = '${category_id}'
+  `;
+
+  db.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
 app.delete('/bike/delete', (req, res) => {
 
   let data = req.body.toString();
 
   var sql = `DELETE FROM bike_table WHERE bike_id IN (${data})`;
+
+  db.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+
+app.delete('/bike/category/delete', (req, res) => {
+
+  let data = req.body.toString();
+
+  var sql = `DELETE FROM category_table WHERE category_id IN (${data})`;
 
   db.query(sql, function (err, result) {
     if (err) throw err;

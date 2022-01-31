@@ -53,6 +53,9 @@
         </div>
       </div>
 
+      
+      <button class="btn btn-warning btn-sm" @click="$router.push('/category')">Update Category</button>
+      <br>
       <br>
 
       <div class="d-flex flex-wrap justify-content-between">
